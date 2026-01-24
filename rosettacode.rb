@@ -46,7 +46,7 @@ module RosettaCode
     return body
   end
 
-  def self.category_pages(category)
+  def self.category_pages(category, type)
     # TODO: find out what cllimit and gcmlimit are
     params = { :format => 'json',
                :action => 'query',
@@ -65,14 +65,21 @@ module RosettaCode
     # mediawiki sends over a bunch of reduntant content (about 4X as
     # much as needed) but i did just what their documentation says so
     # i guess i can't do anything about it
-    pages = pages.lazy
-      .uniq
-      .select { |x| x.start_with? /Category\:/i }
-      .map { |x| x.sub 'Category:', '' }
+    pages = pages.lazy.uniq
+    case type
+    when :pages
+      pages = pages.select { |x| not x.start_with? /Category\:/i }
+    when :categories
+      pages = pages
+        .select { |x| x.start_with? /Category\:/i }
+        .map { |x| x.sub 'Category:', '' }
+    else
+      raise ArgumentError.new "Unknown page type #{type.inspect}"
+    end
     return pages
   end
 
   def self.languages
-    self.category_pages('Programming Languages')
+    self.category_pages('Programming Languages', :categories)
   end
 end
