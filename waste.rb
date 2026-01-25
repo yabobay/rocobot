@@ -26,5 +26,4 @@ waste.define_command('langs') {
   end
 }
 
-ARGV.push '-h' if ARGV.empty?
-waste.run(ARGV)
+waste.run ARGV.empty? ? ['-h'] : ARGV
