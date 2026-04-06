@@ -2,10 +2,26 @@ import rosettacode
 import argparse
 from random import choice as pick
 
-parser = argparse.ArgumentParser(
-    prog='waste',
-    color=False,
-)
+def atLeastVersion(*args):
+    from sys import version_info
+    ver = version_info.major, version_info.minor, version_info.micro
+    args = list(args)
+    while len(args) < 3:
+        args += [0]
+    for i in zip(ver, args):
+        if i[0] > i[1]:
+            return True
+        if i[0] < i[1]:
+            return False
+    return True
+
+options = {
+    'prog': 'waste',
+}
+if atLeastVersion(3, 14):
+    options['color'] = False
+parser = argparse.ArgumentParser(**options)
+
 sp = parser.add_subparsers(dest='command')
 sp_lang = sp.add_parser('lang', help='gimme a random language')
 sp_lang.add_argument('--doesnt-have', help="give a language that this task isn't completed in", dest='task')
