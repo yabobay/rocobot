@@ -28,6 +28,7 @@ match args.command:
                               if x.title() not in taskLangs]
             lang = pick(langsNotInTask)
         print(rosettacode.languageName(lang))
+        print(lang.full_url())
     case 'task':
         if args.lang != None:
             lang = rosettacode.language(args.lang)
