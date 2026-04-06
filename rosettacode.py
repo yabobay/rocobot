@@ -1,12 +1,20 @@
 import pywikibot
 from pywikibot import pagegenerators
 
+class PageDoesntExist(Exception): pass
+
 site_ = None
 def site():
     global site_
     if site_ == None:
         site_ = pywikibot.Site()
     return site_
+
+def pageCategories(name):
+    page = pywikibot.Page(site(), name)
+    if not page.exists():
+        raise PageDoesntExist()
+    return page.categories()
 
 languagesMemo = None
 def languages():
