@@ -25,6 +25,8 @@ match args.command:
             task = pick(list(rosettacode.tasksNotDoneInLanguage(lang)))
             print('Language :', rosettacode.languageName(lang))
             print('Task     :', task.title())
+            print(lang.full_url())
+            print(task.full_url())
         except IndexError:
             print(f"Every task is already implemented in {rosettacode.languageName(lang)}!")
     case _:
