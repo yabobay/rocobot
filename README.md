@@ -2,6 +2,8 @@
 
 Picks out random uncompleted tasks from [RosettaCode](https://rosettacode.org) for you to complete.
 
+![](screenshot.png)
+
 ## Usage
 
 Print a random language:
