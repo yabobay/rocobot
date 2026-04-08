@@ -1,6 +1,10 @@
 import pywikibot
 from pywikibot import pagegenerators
 
+pywikibot.config.mylang = 'rosettacode'
+pywikibot.config.family_files['rosettacode'] = 'https://rosettacode.org'
+pywikibot.config.family = 'rosettacode'
+
 class PageDoesntExist(Exception): pass
 
 site_ = None
