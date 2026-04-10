@@ -21,12 +21,15 @@ if atLeastVersion(3, 14):
 parser = argparse.ArgumentParser(**options)
 
 sp = parser.add_subparsers(dest='command')
+
 sp_lang = sp.add_parser('lang', help='gimme a random language')
 sp_lang.add_argument('--doesnt-have', help="give a language that this task isn't completed in", dest='task')
 sp_lang.add_argument('--list', help='list all languages', dest='list', action='store_true')
+
 sp_task = sp.add_parser('task', help='gimme a random uncompleted task')
-sp_task.add_argument('lang', nargs='?', help='give a task not yet completed in this language')
+sp_task.add_argument('lang', nargs='?', help='give a task not yet implemented in this language')
 sp_task.add_argument('--list', help='list all tasks', dest='list', action='store_true')
+sp_task.add_argument('-i', help='give a task that *is* implemented', dest='implemented', action='store_true')
 
 args = parser.parse_args()
 
@@ -54,10 +57,10 @@ match args.command:
             print(lang.full_url())
 
     case 'task':
-        if args.lang == None:
-            tasks = rosettacode.tasks()
+        if args.implemented:
+            tasks = rosettacode.tasks(args.lang)
         else:
-            tasks = rosettacode.tasksNotDoneInLanguage(args.lang)
+            tasks = rosettacode.tasksNotDoneInLanguage(rosettacode.language(args.lang))
 
         if args.list:
             for i in tasks:
