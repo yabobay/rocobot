@@ -60,7 +60,11 @@ match args.command:
         if args.implemented:
             tasks = rosettacode.tasks(args.lang)
         else:
-            tasks = rosettacode.tasksNotDoneInLanguage(rosettacode.language(args.lang))
+            if args.lang != None:
+                lang = rosettacode.language(args.lang)
+            else:
+                lang = pick(rosettacode.languages())
+            tasks = rosettacode.tasksNotDoneInLanguage(lang)
 
         if args.list:
             for i in tasks:
