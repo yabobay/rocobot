@@ -15,7 +15,7 @@ def atLeastVersion(*args):
             return False
     return True
 
-options = { 'prog': 'waste' }
+options = { 'prog': 'rocobot' }
 if atLeastVersion(3, 14):
     options['color'] = False
 parser = argparse.ArgumentParser(**options)
